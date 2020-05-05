@@ -7,12 +7,18 @@ const server = express();
 
 server.use(express.json());
 
+// server.get('/', (req, res) => {
+//   res.send(`
+//     <h2>Lambda Hubs API</h>
+//     <p>Welcome to the Lambda Hubs API</p>
+//   `);
+// });
+
 server.get('/', (req, res) => {
-  res.send(`
-    <h2>Lambda Hubs API</h>
-    <p>Welcome to the Lambda Hubs API</p>
-  `);
-});
+  
+    res.json({ query: req.query, params: req.params, headers: req.headers})
+
+})
 
 server.use("/api/hubs", hubsRouter);
 

@@ -87,6 +87,22 @@ router.put('/api/hubs/:id', (req, res) => {
 });
 
 // add an endpoint that returns all the messages for a hub
+router.get('/:id/messages', (req, res) => {
+  Hubs.findHubMessages(req.params.id).then(messages => {
+    //sends status with metadata 'messages' can put in pagination as msg.
+    res.status(200).json({ data: messages})
+
+  }).catch(error => {
+    console.log('error', error);
+
+    res.status(500).json({ 
+      message: 'we ran into an issue retrieving the messages',
+      error: error.message
+    })
+  })
+})
 // add an endpoint for adding new message to a hub
+// POST /api/messages but then require --> hub_id is part of the request.body
+//POST /api/hubs/:id/messages then grab --> have the hub_id on the URL
 
 module.exports = router;
